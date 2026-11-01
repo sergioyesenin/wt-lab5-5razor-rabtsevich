@@ -1,0 +1,102 @@
+@page
+@model wt_lab5_5razor_rabtsevich.Pages.Airlines.DetailsModel
+@{
+    ViewData["Title"] = Model.Airline?.Name;
+}
+
+<div class="container py-4">
+    <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+        <div class="card-body p-4 p-lg-5 bg-gradient-primary text-white">
+            <div class="d-flex align-items-center gap-4 flex-wrap">
+                <div class="airline-logo-lg">@Model.Airline!.IataCode</div>
+                <div>
+                    <h1 class="fw-bold mb-1">@Model.Airline.Name</h1>
+                    <p class="mb-2 opacity-75">@Model.Airline.Country · основана в @Model.Airline.FoundedYear</p>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <span class="badge bg-light text-dark">★ @Model.Airline.Rating</span>
+                        <span class="badge @(Model.Airline.IsActive ? "bg-success" : "bg-secondary")">
+                            @(Model.Airline.IsActive ? "Активна" : "Неактивна")
+                        </span>
+                        <span class="badge bg-light text-dark">@Model.Aircrafts.Count самолётов</span>
+                        <span class="badge bg-light text-dark">@Model.Flights.Count рейсов</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Airline.Description))
+    {
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-body p-4">
+                <h6 class="text-muted text-uppercase small mb-2">Описание</h6>
+                <p class="mb-0">@Model.Airline.Description</p>
+            </div>
+        </div>
+    }
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">✈️ Воздушные суда</h5>
+                    @if (!Model.Aircrafts.Any())
+                    {
+                        <p class="text-muted">Нет данных.</p>
+                    }
+                    else
+                    {
+                        <ul class="list-group list-group-flush">
+                        @foreach (var ac in Model.Aircrafts)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div>
+                                    <div class="fw-semibold">@ac.Model</div>
+                                    <small class="text-muted">@ac.Manufacturer · @ac.ManufactureYear · @ac.SeatCapacity мест</small>
+                                </div>
+                                <span class="badge @(ac.IsOperational ? "bg-success" : "bg-secondary")">
+                                    @(ac.IsOperational ? "В строю" : "На ТО")
+                                </span>
+                            </li>
+                        }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">🗓 Рейсы</h5>
+                    @if (!Model.Flights.Any())
+                    {
+                        <p class="text-muted">Нет данных.</p>
+                    }
+                    else
+                    {
+                        <ul class="list-group list-group-flush">
+                        @foreach (var f in Model.Flights)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div>
+                                    <a asp-page="/Flights/Details" asp-route-id="@f.Id"
+                                       class="fw-semibold text-decoration-none">@f.FlightNumber</a>
+                                    <div class="small text-muted">@f.Departure → @f.Destination</div>
+                                </div>
+                                <div class="text-end">
+                                    <div class="fw-bold text-primary">@f.TicketPrice ₽</div>
+                                    <small class="text-muted">@f.DepartureTime.ToString("dd.MM HH:mm")</small>
+                                </div>
+                            </li>
+                        }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-page="/Airlines/Index" class="btn btn-secondary rounded-3">← Назад к списку</a>
+    </div>
+</div>

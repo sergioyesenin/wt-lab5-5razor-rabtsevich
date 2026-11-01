@@ -1,0 +1,91 @@
+@page
+@model wt_lab5_5razor_rabtsevich.Pages.Airlines.IndexModel
+@{
+    ViewData["Title"] = "Авиакомпании";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div>
+            <h1 class="fw-bold mb-1">🏢 Авиакомпании</h1>
+            <p class="text-muted mb-0">Всего: @Model.Airlines.Count</p>
+        </div>
+        <a asp-page="/Airlines/Create" class="btn btn-primary btn-lg rounded-3 shadow-sm">
+            + Добавить
+        </a>
+    </div>
+
+    <!-- filters -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-2 align-items-end">
+                <div class="col-md-5">
+                    <label class="form-label small text-muted mb-1">Поиск</label>
+                    <input name="search" value="@Model.Search" class="form-control"
+                           placeholder="Название или код IATA" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small text-muted mb-1">Страна</label>
+                    <select name="country" class="form-select">
+                        <option value="">Все страны</option>
+                        @foreach (var c in Model.Countries)
+                        {
+                            <option value="@c" selected="@(c == Model.Country)">@c</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex gap-2">
+                    <button class="btn btn-primary w-100">Найти</button>
+                    <a asp-page="/Airlines/Index" class="btn btn-outline-secondary w-100">Сброс</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (!Model.Airlines.Any())
+    {
+        <div class="alert alert-warning rounded-4">Ничего не найдено.</div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var a in Model.Airlines)
+            {
+                var flights = FlightStore.FlightsOfAirline(a.Id).Count();
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 airline-card">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="airline-logo me-3">@a.IataCode</div>
+                                <div class="flex-grow-1">
+                                    <h5 class="fw-bold mb-0">@a.Name</h5>
+                                    <small class="text-muted">@a.Country · с @a.FoundedYear</small>
+                                </div>
+                                <span class="badge @(a.IsActive ? "bg-success" : "bg-secondary") rounded-pill">
+                                    @(a.IsActive ? "Активна" : "Неактивна")
+                                </span>
+                            </div>
+
+                            <div class="d-flex gap-2 mb-3 flex-wrap">
+                                <span class="badge bg-warning text-dark">★ @a.Rating</span>
+                                <span class="badge bg-light text-dark">@flights рейсов</span>
+                            </div>
+
+                            @if (!string.IsNullOrWhiteSpace(a.Description))
+                            {
+                                <p class="text-muted small mb-3">@a.Description</p>
+                            }
+
+                            <div class="mt-auto d-flex gap-2">
+                                <a asp-page="/Airlines/Details" asp-route-id="@a.Id"
+                                   class="btn btn-outline-primary btn-sm flex-fill rounded-3">
+                                    Подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

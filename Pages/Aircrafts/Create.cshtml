@@ -1,0 +1,69 @@
+@page
+@model wt_lab5_5razor_rabtsevich.Pages.Aircrafts.CreateModel
+@{
+    ViewData["Title"] = "Новое воздушное судно";
+}
+
+<div class="container py-4">
+    <div class="card border-0 shadow-sm rounded-4 mx-auto" style="max-width: 720px;">
+        <div class="card-body p-4 p-lg-5">
+            <h2 class="fw-bold mb-4">✈️ Новое воздушное судно</h2>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="alert alert-danger rounded-3"></div>
+            }
+
+            <form method="post" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Aircraft.Model" class="form-label"></label>
+                        <input asp-for="Aircraft.Model" class="form-control" />
+                        <span asp-validation-for="Aircraft.Model" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Aircraft.Manufacturer" class="form-label"></label>
+                        <input asp-for="Aircraft.Manufacturer" class="form-control" />
+                        <span asp-validation-for="Aircraft.Manufacturer" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Aircraft.SeatCapacity" class="form-label"></label>
+                        <input asp-for="Aircraft.SeatCapacity" type="number" class="form-control" />
+                        <span asp-validation-for="Aircraft.SeatCapacity" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Aircraft.ManufactureYear" class="form-label"></label>
+                        <input asp-for="Aircraft.ManufactureYear" type="number" class="form-control" />
+                        <span asp-validation-for="Aircraft.ManufactureYear" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Aircraft.AirlineId" class="form-label"></label>
+                        <select asp-for="Aircraft.AirlineId" asp-items="Model.Airlines" class="form-select">
+                            <option value="">— выберите —</option>
+                        </select>
+                        <span asp-validation-for="Aircraft.AirlineId" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Aircraft.TailNumber" class="form-label"></label>
+                        <input asp-for="Aircraft.TailNumber" class="form-control text-uppercase"
+                               maxlength="10" />
+                        <span asp-validation-for="Aircraft.TailNumber" class="text-danger small"></span>
+                    </div>
+                    <div class="col-12 form-check ms-2">
+                        <input asp-for="Aircraft.IsOperational" class="form-check-input" />
+                        <label asp-for="Aircraft.IsOperational" class="form-check-label"></label>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary rounded-3">Сохранить</button>
+                    <a asp-page="/Aircrafts/Index" class="btn btn-secondary rounded-3">← Назад</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,69 @@
+@page
+@model wt_lab5_5razor_rabtsevich.Pages.Flights.EditModel
+@{
+    ViewData["Title"] = "Редактирование рейса";
+}
+
+<div class="container py-4">
+    <div class="card border-0 shadow-sm rounded-4 mx-auto" style="max-width: 820px;">
+        <div class="card-body p-4 p-lg-5">
+            <h2 class="fw-bold mb-4">✏️ Редактирование рейса #@Model.Flight.Id</h2>
+
+            <form method="post" asp-route-id="@Model.Flight.Id" novalidate>
+                <input type="hidden" asp-for="Flight.Id" />
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Flight.FlightNumber" class="form-label"></label>
+                        <input asp-for="Flight.FlightNumber" class="form-control" />
+                        <span asp-validation-for="Flight.FlightNumber" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Flight.FlightType" class="form-label"></label>
+                        <select asp-for="Flight.FlightType" asp-items="@(new SelectList(Model.FlightTypes))" class="form-select"></select>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Flight.Departure" class="form-label"></label>
+                        <input asp-for="Flight.Departure" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Flight.Destination" class="form-label"></label>
+                        <input asp-for="Flight.Destination" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Flight.DepartureTime" class="form-label"></label>
+                        <input asp-for="Flight.DepartureTime" type="datetime-local" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Flight.TicketPrice" class="form-label"></label>
+                        <input asp-for="Flight.TicketPrice" type="number" step="0.01" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Flight.SeatsAvailable" class="form-label"></label>
+                        <input asp-for="Flight.SeatsAvailable" type="number" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Flight.AirlineId" class="form-label"></label>
+                        <select asp-for="Flight.AirlineId" asp-items="Model.Airlines" class="form-select"></select>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Flight.AircraftId" class="form-label"></label>
+                        <select asp-for="Flight.AircraftId" asp-items="Model.Aircrafts" class="form-select"></select>
+                    </div>
+                    <div class="col-12 form-check ms-2">
+                        <input asp-for="Flight.IsActive" class="form-check-input" />
+                        <label asp-for="Flight.IsActive" class="form-check-label"></label>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-warning rounded-3">Сохранить изменения</button>
+                    <a asp-page="/Flights/Index" class="btn btn-secondary rounded-3">← Назад</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

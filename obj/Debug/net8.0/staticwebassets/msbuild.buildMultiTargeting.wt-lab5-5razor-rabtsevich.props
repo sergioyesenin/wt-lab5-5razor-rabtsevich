@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\wt-lab5-5razor-rabtsevich.props" />
+</Project>

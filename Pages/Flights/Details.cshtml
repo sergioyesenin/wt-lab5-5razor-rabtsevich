@@ -1,0 +1,83 @@
+@page
+@model wt_lab5_5razor_rabtsevich.Pages.Flights.DetailsModel
+@{
+    ViewData["Title"] = $"Рейс {Model.Flight?.FlightNumber}";
+}
+
+<div class="container py-4">
+    <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+        <div class="card-body p-4 p-lg-5 bg-gradient-primary text-white">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                <div>
+                    <h1 class="fw-bold mb-2">✈️ @Model.Flight!.FlightNumber</h1>
+                    <p class="mb-0 fs-5 opacity-75">
+                        @Model.Flight.Departure <i class="bi bi-arrow-right"></i> @Model.Flight.Destination
+                    </p>
+                    <p class="mb-0 opacity-75">
+                        @Model.Flight.DepartureTime.ToString("dddd, dd MMMM yyyy, HH:mm")
+                    </p>
+                </div>
+                <span class="badge rounded-pill fs-6 @(Model.Flight.IsActive ? "bg-success" : "bg-danger")">
+                    @(Model.Flight.IsActive ? "Активен" : "Неактивен")
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Детали рейса</h5>
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">ID</dt><dd class="col-sm-8">@Model.Flight.Id</dd>
+                        <dt class="col-sm-4">Номер рейса</dt><dd class="col-sm-8">@Model.Flight.FlightNumber</dd>
+                        <dt class="col-sm-4">Тип</dt><dd class="col-sm-8">@Model.Flight.FlightType</dd>
+                        <dt class="col-sm-4">Пункт вылета</dt><dd class="col-sm-8">@Model.Flight.Departure</dd>
+                        <dt class="col-sm-4">Пункт назначения</dt><dd class="col-sm-8">@Model.Flight.Destination</dd>
+                        <dt class="col-sm-4">Время вылета</dt><dd class="col-sm-8">@Model.Flight.DepartureTime.ToString("dd.MM.yyyy HH:mm")</dd>
+                        <dt class="col-sm-4">Цена билета</dt><dd class="col-sm-8 fw-bold text-primary fs-5">@Model.Flight.TicketPrice ₽</dd>
+                        <dt class="col-sm-4">Свободных мест</dt><dd class="col-sm-8">@Model.Flight.SeatsAvailable</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h6 class="text-muted text-uppercase small mb-3">Авиакомпания</h6>
+                    @if (Model.Airline is not null)
+                    {
+                        <a asp-page="/Airlines/Details" asp-route-id="@Model.Airline.Id"
+                           class="d-flex align-items-center text-decoration-none text-dark">
+                            <div class="avatar-circle me-3">@Model.Airline.IataCode</div>
+                            <div>
+                                <div class="fw-semibold">@Model.Airline.Name</div>
+                                <small class="text-muted">@Model.Airline.Country</small>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <h6 class="text-muted text-uppercase small mb-3">Воздушное судно</h6>
+                    @if (Model.Aircraft is not null)
+                    {
+                        <div class="fw-semibold">@Model.Aircraft.Model</div>
+                        <small class="text-muted">@Model.Aircraft.Manufacturer · @Model.Aircraft.ManufactureYear</small>
+                        <div class="mt-2">
+                            <span class="badge bg-light text-dark">@Model.Aircraft.SeatCapacity мест</span>
+                            <span class="badge bg-light text-dark">@Model.Aircraft.TailNumber</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+        <a asp-page="/Flights/Edit" asp-route-id="@Model.Flight.Id" class="btn btn-warning rounded-3">Изменить</a>
+        <a asp-page="/Flights/Index" class="btn btn-secondary rounded-3">← Назад к списку</a>
+    </div>
+</div>

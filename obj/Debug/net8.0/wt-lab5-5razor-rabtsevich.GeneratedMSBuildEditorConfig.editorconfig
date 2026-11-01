@@ -1,0 +1,83 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = wt_lab5_5razor_rabtsevich
+build_property.RootNamespace = wt_lab5_5razor_rabtsevich
+build_property.ProjectDir = D:\Projects\WT\LAB 5\wt-lab5-5razor-rabtsevich\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Projects\WT\LAB 5\wt-lab5-5razor-rabtsevich
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Aircrafts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWlyY3JhZnRzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Aircrafts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWlyY3JhZnRzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Airlines/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWlybGluZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Airlines/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWlybGluZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Airlines/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWlybGluZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Flights/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmxpZ2h0c1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Flights/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmxpZ2h0c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Flights/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmxpZ2h0c1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Flights/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmxpZ2h0c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/WT/LAB 5/wt-lab5-5razor-rabtsevich/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-btweuclw97

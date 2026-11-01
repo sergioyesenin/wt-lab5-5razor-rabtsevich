@@ -1,0 +1,85 @@
+html { font-size: 14px; }
+@media (min-width: 768px) { html { font-size: 16px; } }
+
+body { margin: 0; }
+
+/* ── HERO ── */
+.hero-section {
+    background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+    position: relative;
+    overflow: hidden;
+}
+.hero-section::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(255,255,255,.15), transparent 40%);
+    pointer-events: none;
+}
+.hero-illustration { animation: float 6s ease-in-out infinite; }
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-15px); }
+}
+
+/* ── METRICS ── */
+.metric-card { transition: transform .15s ease, box-shadow .15s ease; }
+.metric-card:hover { transform: translateY(-4px); box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.12) !important; }
+.metric-blue   { border-left: 4px solid #0d6efd; }
+.metric-purple { border-left: 4px solid #6610f2; }
+.metric-green  { border-left: 4px solid #198754; }
+.metric-orange { border-left: 4px solid #fd7e14; }
+
+/* ── CARDS HOVER ── */
+.flight-card, .airline-card, .aircraft-card {
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.flight-card:hover, .airline-card:hover, .aircraft-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.15) !important;
+}
+
+/* ── QUICK ACTIONS ── */
+.quick-action { transition: transform .15s ease, box-shadow .15s ease; }
+.quick-action:hover { transform: translateY(-4px); box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.15) !important; }
+
+/* ── HOVER ROW ── */
+.hover-row { transition: background .15s ease; }
+.hover-row:hover { background: #f1f3f5; }
+
+/* ── AVATAR / LOGO ── */
+.avatar-circle {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .8rem;
+}
+.airline-logo {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .9rem;
+    flex-shrink: 0;
+}
+.airline-logo-lg {
+    width: 90px; height: 90px;
+    border-radius: 22px;
+    background: rgba(255,255,255,.2);
+    color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    border: 2px solid rgba(255,255,255,.4);
+}
+
+/* ── GRADIENT BG ── */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+}
+
+/* ── FORMS ── */
+.form-control:focus, .form-select:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 .2rem rgba(13,110,253,.15);
+}

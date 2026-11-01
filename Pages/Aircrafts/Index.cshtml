@@ -1,0 +1,79 @@
+@page
+@model wt_lab5_5razor_rabtsevich.Pages.Aircrafts.IndexModel
+@{
+    ViewData["Title"] = "Воздушные суда";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div>
+            <h1 class="fw-bold mb-1">✈️ Воздушные суда</h1>
+            <p class="text-muted mb-0">Всего: @Model.Aircrafts.Count</p>
+        </div>
+        <a asp-page="/Aircrafts/Create" class="btn btn-primary btn-lg rounded-3 shadow-sm">+ Добавить</a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-2 align-items-end">
+                <div class="col-md-8">
+                    <label class="form-label small text-muted mb-1">Производитель</label>
+                    <select name="manufacturer" class="form-select">
+                        <option value="">Все</option>
+                        @foreach (var m in Model.Manufacturers)
+                        {
+                            <option value="@m" selected="@(m == Model.Manufacturer)">@m</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button class="btn btn-primary w-100">Фильтр</button>
+                    <a asp-page="/Aircrafts/Index" class="btn btn-outline-secondary w-100">Сброс</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var ac in Model.Aircrafts)
+        {
+            var airline = FlightStore.GetAirline(ac.AirlineId);
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm rounded-4 h-100 aircraft-card">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge bg-secondary rounded-pill">ID: @ac.Id</span>
+                            <span class="badge @(ac.IsOperational ? "bg-success" : "bg-secondary") rounded-pill">
+                                @(ac.IsOperational ? "В строю" : "На ТО")
+                            </span>
+                        </div>
+                        <h5 class="fw-bold mb-1">@ac.Model</h5>
+                        <p class="text-muted small mb-3">@ac.Manufacturer · @ac.ManufactureYear</p>
+
+                        <div class="row g-2 text-center mb-3">
+                            <div class="col-6">
+                                <div class="p-2 bg-light rounded-3">
+                                    <div class="fw-bold">@ac.SeatCapacity</div>
+                                    <small class="text-muted">мест</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-2 bg-light rounded-3">
+                                    <div class="fw-bold">@ac.TailNumber</div>
+                                    <small class="text-muted">бортовой</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (airline is not null)
+                        {
+                            <p class="small text-muted mb-0">
+                                Авиакомпания: <strong>@airline.Name</strong>
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
