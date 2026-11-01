@@ -24,11 +24,37 @@ public class IndexModel : PageModel
         FlightType = flightType;
         OnlyActive = onlyActive;
 
-        // Безопасные фильтры
-        if (!string.IsNullOrWhiteSpace(Search) && Search.Length > 100)
-            Search = search = Search[..100];
+        var q = FlightStore.Flights.AsEnumerable();
 
-        if (AirlineId is <= 0)
-            AirlineId = null;
+        if (!string.IsNullOrWhiteSpace(search))
+            q = q.Where(f =>
+                f.Destination.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                f.Departure.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                f.FlightNumber.Contains(search, StringComparison.OrdinalIgnoreCase));
 
-        var q = Flight
+        if (airlineId.HasValue)
+            q = q.Where(f => f.AirlineId == airlineId.Value);
+
+        if (!string.IsNullOrWhiteSpace(flightType))
+            q = q.Where(f => f.FlightType == flightType);
+
+        if (onlyActive)
+            q = q.Where(f => f.IsActive);
+
+        Flights = q.OrderBy(f => f.DepartureTime).ToList();
+
+        AirlineOptions = FlightStore.Airlines
+            .Select(a => new SelectListItem(a.Name, a.Id.ToString()))
+            .ToList();
+
+        FlightTypes = FlightStore.Flights
+            .Select(f => f.FlightType).Distinct().OrderBy(x => x).ToList();
+    }
+
+    public IActionResult OnPostDelete(int id)
+    {
+        var f = FlightStore.GetFlight(id);
+        if (f is not null) FlightStore.Flights.Remove(f);
+        return RedirectToPage("./Index");
+    }
+}
