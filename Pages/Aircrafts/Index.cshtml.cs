@@ -12,10 +12,19 @@ public class IndexModel : PageModel
 
     public void OnGet(string? manufacturer)
     {
-        Manufacturer = manufacturer;
+        // Нормализация входного параметра
+        if (!string.IsNullOrWhiteSpace(manufacturer))
+        {
+            manufacturer = manufacturer.Trim();
+            if (manufacturer.Length > 100)
+                manufacturer = manufacturer[..100];
+        }
+        else
+        {
+            manufacturer = null;
+        }
 
-        if (!string.IsNullOrWhiteSpace(manufacturer) && manufacturer.Length > 100)
-            Manufacturer = manufacturer = manufacturer[..100];
+        Manufacturer = manufacturer;
 
         var q = FlightStore.Aircrafts.AsEnumerable();
         if (!string.IsNullOrWhiteSpace(Manufacturer))

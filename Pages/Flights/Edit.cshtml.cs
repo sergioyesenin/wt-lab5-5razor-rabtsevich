@@ -17,6 +17,8 @@ public class EditModel : PageModel
 
     public IActionResult OnGet(int id)
     {
+        if (id <= 0) return BadRequest();
+
         var existing = FlightStore.GetFlight(id);
         if (existing is null) return NotFound();
 
@@ -40,7 +42,50 @@ public class EditModel : PageModel
 
     public IActionResult OnPost(int id)
     {
-        if (id != Flight.Id) return BadRequest();
+        // ❗ Диагностика: если сюда не доходит id — увидим 400, а не тишину
+        if (id <= 0) return BadRequest($"Некорректный id маршрута: {id}");
+        if (id != Flight.Id) return BadRequest($"id маршрута ({id}) != Flight.Id ({Flight.Id})");
+
+        // ── Нормализация ──
+        Flight.FlightNumber = (Flight.FlightNumber ?? "").Trim().ToUpperInvariant();
+        Flight.Departure = Flight.Departure?.Trim() ?? string.Empty;
+        Flight.Destination = Flight.Destination?.Trim() ?? string.Empty;
+        Flight.FlightType = string.IsNullOrWhiteSpace(Flight.FlightType)
+            ? "Пассажирский"
+            : Flight.FlightType.Trim();
+
+        // ── FK ──
+        var airline = FlightStore.GetAirline(Flight.AirlineId);
+        if (airline is null)
+            ModelState.AddModelError("Flight.AirlineId", "Выбранная авиакомпания не найдена.");
+
+        var aircraft = FlightStore.GetAircraft(Flight.AircraftId);
+        if (aircraft is null)
+            ModelState.AddModelError("Flight.AircraftId", "Выбранное воздушное судно не найдено.");
+
+        if (airline is not null && aircraft is not null && aircraft.AirlineId != airline.Id)
+            ModelState.AddModelError("Flight.AircraftId",
+                "Выбранный самолёт не принадлежит выбранной авиакомпании.");
+
+        // ── Уникальность с исключением текущего рейса ──
+        if (!string.IsNullOrEmpty(Flight.FlightNumber) &&
+            FlightStore.FlightNumberExists(Flight.FlightNumber, excludeId: Flight.Id))
+            ModelState.AddModelError("Flight.FlightNumber", "Рейс с таким номером уже существует.");
+
+        // ── Departure != Destination ──
+        if (!string.IsNullOrEmpty(Flight.Departure) &&
+            string.Equals(Flight.Departure, Flight.Destination, StringComparison.OrdinalIgnoreCase))
+            ModelState.AddModelError("Flight.Destination", "Пункт назначения не должен совпадать с пунктом вылета.");
+
+        // ── Время вылета не в прошлом ──
+        if (Flight.DepartureTime < DateTime.Now)
+            ModelState.AddModelError("Flight.DepartureTime", "Время вылета не может быть в прошлом.");
+
+        // ── Мест не больше вместимости ──
+        if (aircraft is not null && Flight.SeatsAvailable > aircraft.SeatCapacity)
+            ModelState.AddModelError("Flight.SeatsAvailable",
+                $"Свободных мест не может быть больше вместимости самолёта ({aircraft.SeatCapacity}).");
+
         if (!ModelState.IsValid)
         {
             LoadLists();

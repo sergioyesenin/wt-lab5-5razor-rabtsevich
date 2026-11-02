@@ -28,3 +28,4 @@ D:\Projects\WT\LAB 5\wt-lab5-5razor-rabtsevich\obj\Debug\net8.0\refint\wt-lab5-5
 D:\Projects\WT\LAB 5\wt-lab5-5razor-rabtsevich\obj\Debug\net8.0\wt-lab5-5razor-rabtsevich.pdb
 D:\Projects\WT\LAB 5\wt-lab5-5razor-rabtsevich\obj\Debug\net8.0\wt-lab5-5razor-rabtsevich.genruntimeconfig.cache
 D:\Projects\WT\LAB 5\wt-lab5-5razor-rabtsevich\obj\Debug\net8.0\ref\wt-lab5-5razor-rabtsevich.dll
+D:\Projects\WT\LAB 5\wt-lab5-5razor-rabtsevich\obj\Debug\net8.0\wt-lab5-5razor-rabtsevich.sourcelink.json

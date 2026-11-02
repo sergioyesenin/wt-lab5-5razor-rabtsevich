@@ -1,4 +1,4 @@
-@page
+@page "{id:int}"
 @model wt_lab5_5razor_rabtsevich.Pages.Flights.EditModel
 @{
     ViewData["Title"] = "Редактирование рейса";
@@ -9,7 +9,12 @@
         <div class="card-body p-4 p-lg-5">
             <h2 class="fw-bold mb-4">✏️ Редактирование рейса #@Model.Flight.Id</h2>
 
-            <form method="post" asp-route-id="@Model.Flight.Id" novalidate>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="alert alert-danger rounded-3"></div>
+            }
+
+            <form method="post" novalidate>
                 <input type="hidden" asp-for="Flight.Id" />
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -24,30 +29,37 @@
                     <div class="col-md-6">
                         <label asp-for="Flight.Departure" class="form-label"></label>
                         <input asp-for="Flight.Departure" class="form-control" />
+                        <span asp-validation-for="Flight.Departure" class="text-danger small"></span>
                     </div>
                     <div class="col-md-6">
                         <label asp-for="Flight.Destination" class="form-label"></label>
                         <input asp-for="Flight.Destination" class="form-control" />
+                        <span asp-validation-for="Flight.Destination" class="text-danger small"></span>
                     </div>
                     <div class="col-md-6">
                         <label asp-for="Flight.DepartureTime" class="form-label"></label>
                         <input asp-for="Flight.DepartureTime" type="datetime-local" class="form-control" />
+                        <span asp-validation-for="Flight.DepartureTime" class="text-danger small"></span>
                     </div>
                     <div class="col-md-3">
                         <label asp-for="Flight.TicketPrice" class="form-label"></label>
                         <input asp-for="Flight.TicketPrice" type="number" step="0.01" class="form-control" />
+                        <span asp-validation-for="Flight.TicketPrice" class="text-danger small"></span>
                     </div>
                     <div class="col-md-3">
                         <label asp-for="Flight.SeatsAvailable" class="form-label"></label>
                         <input asp-for="Flight.SeatsAvailable" type="number" class="form-control" />
+                        <span asp-validation-for="Flight.SeatsAvailable" class="text-danger small"></span>
                     </div>
                     <div class="col-md-6">
                         <label asp-for="Flight.AirlineId" class="form-label"></label>
                         <select asp-for="Flight.AirlineId" asp-items="Model.Airlines" class="form-select"></select>
+                        <span asp-validation-for="Flight.AirlineId" class="text-danger small"></span>
                     </div>
                     <div class="col-md-6">
                         <label asp-for="Flight.AircraftId" class="form-label"></label>
                         <select asp-for="Flight.AircraftId" asp-items="Model.Aircrafts" class="form-select"></select>
+                        <span asp-validation-for="Flight.AircraftId" class="text-danger small"></span>
                     </div>
                     <div class="col-12 form-check ms-2">
                         <input asp-for="Flight.IsActive" class="form-check-input" />

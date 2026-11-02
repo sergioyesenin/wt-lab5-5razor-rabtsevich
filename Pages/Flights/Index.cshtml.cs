@@ -19,6 +19,14 @@ public class IndexModel : PageModel
 
     public void OnGet(string? search, int? airlineId, string? flightType, bool onlyActive = false)
     {
+        // Ограничение длины поисковой строки
+        if (!string.IsNullOrWhiteSpace(search) && search.Length > 100)
+            search = search[..100];
+
+        // Игнорируем некорректный airlineId
+        if (airlineId.HasValue && airlineId.Value <= 0)
+            airlineId = null;
+
         Search = search;
         AirlineId = airlineId;
         FlightType = flightType;
@@ -53,8 +61,12 @@ public class IndexModel : PageModel
 
     public IActionResult OnPostDelete(int id)
     {
+        if (id <= 0) return BadRequest();
+
         var f = FlightStore.GetFlight(id);
-        if (f is not null) FlightStore.Flights.Remove(f);
+        if (f is null) return NotFound();
+
+        FlightStore.Flights.Remove(f);
         return RedirectToPage("./Index");
     }
 }
